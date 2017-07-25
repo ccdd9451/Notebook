@@ -27,7 +27,7 @@ saver.save(sess, "/tmp/model.ckpt", global_step=g)
 ```python3
 saver.restore(sess, save_path)
 ```
-一段常用的从最后检查点恢复的方法
+一段常用的从最后检查点恢复的方法（用于继续训练）
 ```python3
 ckpt = tf.train.get_checkpoint_state(checkpoint_dir)  
 if ckpt and ckpt.model_checkpoint_path:  
@@ -38,4 +38,16 @@ if ckpt and ckpt.model_checkpoint_path:
 states = tf.train.get_checkpoint_stat(your_checkpoint_di)
 checkpoint_paths = states.all_model_checkpoint_paths
 saver.recover_last_checkpoints(checkpoint_paths)
+```
+从已保存文件中恢复模型：
+```python3
+saver = tf.train.import_meta_graph(filename)
+saver.restore(sess, tf.train.latest_checkpoint('./'))
+
+# 提取变量
+graph = tf.get_default_graph()
+w1 = graph.get_tensor_by_name("w1:0")
+
+#运行新任务
+sess.run(w1)
 ```
