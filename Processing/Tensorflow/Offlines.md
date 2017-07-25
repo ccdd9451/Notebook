@@ -7,8 +7,8 @@
   __init__(
     var_list=None, 
     reshape=False,
-    name=None,  # prefix name
     #...
+    name=None,  # prefix name
     save_relative_paths=False
   )
 ```
